@@ -2,11 +2,14 @@
 
 A modern web application for editing and viewing Entity-Relationship (ER) diagrams, built with Vite, TypeScript, React, shadcn-ui, and Tailwind CSS.
 
+## Demo
+
+![ER Diagram Demo](./docs/ER_Diagram.gif)
+
 ## Documentation
 
 - [Requirements](./docs/Requirements.md)
 - [Manual ER Viewer Test](./docs/manual-er-viewer-test.md)
-
 
 ## How can I edit this code?
 
