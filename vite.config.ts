@@ -5,7 +5,7 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: '/ER_Diagram_Focus/',
+  base: '/er-diagram-focus/',
   server: {
     host: "::",
     port: 8080,
