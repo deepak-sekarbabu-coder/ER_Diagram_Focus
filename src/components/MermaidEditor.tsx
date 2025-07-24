@@ -82,12 +82,12 @@ export function MermaidEditor({ value, onChange, onRender, isRendering }: Mermai
   return (
     <Card className="border-border">
       <CardHeader className="pb-3">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <CardTitle className="text-lg font-semibold flex items-center gap-2">
             <Code className="h-5 w-5 text-primary" />
             Mermaid ER Script
           </CardTitle>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap gap-2">
             <Button
               variant="outline"
               size="sm"
@@ -136,7 +136,7 @@ export function MermaidEditor({ value, onChange, onRender, isRendering }: Mermai
           }}
         />
         <div className="mt-2 text-xs text-muted-foreground">
-          Start with <code className="bg-muted px-1 rounded">erDiagram</code> and define your entities and relationships
+          Start with <code className="bg-muted px-1 rounded text-muted-foreground">erDiagram</code> and define your entities and relationships
         </div>
       </CardContent>
     </Card>
