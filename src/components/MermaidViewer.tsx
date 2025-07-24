@@ -437,8 +437,6 @@ export function MermaidViewer({ script, isRendering, onRenderComplete, renderKey
       </CardHeader>
       <CardContent className="pt-0">
         <div className="space-y-4">
-          {script.trim() && !selectedTable && (
-          )}
           <div
             ref={containerRef}
             className="w-full min-h-96 bg-white border border-border rounded-lg p-4 overflow-auto"

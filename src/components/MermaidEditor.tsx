@@ -73,7 +73,7 @@ const defaultScript = `erDiagram
     Category ||--o{ PostCategory : "contains"`;
 
 export function MermaidEditor({ value, onChange, onRender, isRendering }: MermaidEditorProps) {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(true);
 
   const handleLoadDefault = () => {
     onChange(defaultScript);
