@@ -3,7 +3,7 @@ import mermaid from 'mermaid';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Database, RotateCcw } from 'lucide-react';
+import { Database, RotateCcw, Maximize2, Minimize2 } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 
 interface MermaidViewerProps {
@@ -26,6 +26,7 @@ export function MermaidViewer({ script, isRendering, onRenderComplete, renderKey
   const [relationships, setRelationships] = useState<ERRelationship[]>([]);
   const [entities, setEntities] = useState<string[]>([]);
   const [isHighlightMode, setIsHighlightMode] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const { toast } = useToast();
 
   // Initialize Mermaid
@@ -320,6 +321,32 @@ export function MermaidViewer({ script, isRendering, onRenderComplete, renderKey
     resetHighlighting();
   };
 
+  // Toggle fullscreen mode
+  const toggleFullscreen = () => {
+    if (!isFullscreen) {
+      document.body.classList.add('overflow-hidden');
+    } else {
+      document.body.classList.remove('overflow-hidden');
+    }
+    setIsFullscreen(!isFullscreen);
+  };
+
+  const toggleHighlightMode = () => {
+    setIsHighlightMode(!isHighlightMode);
+    if (isHighlightMode) {
+      setSelectedTable(null);
+      resetHighlighting();
+    }
+  };
+
+  const handleReset = () => {
+    setSelectedTable(null);
+    setIsHighlightMode(false);
+    resetHighlighting();
+  };
+
+  const selectedRelationships = getSelectedTableRelationships();
+
   // Export the rendered diagram as SVG
   const handleExportImage = async () => {
     if (!containerRef.current) return;
@@ -373,17 +400,17 @@ export function MermaidViewer({ script, isRendering, onRenderComplete, renderKey
     }
   };
 
-  const selectedRelationships = getSelectedTableRelationships();
-
   return (
-    <Card className="border-border">
+    <Card 
+      className={`border-border ${isFullscreen ? 'fixed inset-0 z-50 m-0 rounded-none w-screen h-screen' : 'relative'}`}
+    >
       <CardHeader className="pb-3">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <CardTitle className="text-lg font-semibold flex items-center gap-2">
             <Database className="h-5 w-5 text-primary" />
             ER Diagram
           </CardTitle>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap gap-2">
             <Button
               variant="outline"
               size="sm"
@@ -408,6 +435,19 @@ export function MermaidViewer({ script, isRendering, onRenderComplete, renderKey
                 Clear Selection
               </Button>
             )}
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={toggleFullscreen}
+              className="text-xs"
+              title={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}
+            >
+              {isFullscreen ? (
+                <Minimize2 className="h-3 w-3" />
+              ) : (
+                <Maximize2 className="h-3 w-3" />
+              )}
+            </Button>
           </div>
         </div>
         {/* Dropdown for selecting table/entity */}
@@ -439,7 +479,9 @@ export function MermaidViewer({ script, isRendering, onRenderComplete, renderKey
         <div className="space-y-4">
           <div
             ref={containerRef}
-            className="w-full min-h-96 bg-white border border-border rounded-lg p-4 overflow-auto"
+            className={`w-full min-h-96 bg-white border border-border rounded-lg p-4 overflow-auto ${
+              isFullscreen ? 'h-[calc(100vh-120px)]' : ''
+            }`}
             style={{
               minHeight: '400px',
               maxHeight: '70vh'
