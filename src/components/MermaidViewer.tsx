@@ -438,11 +438,6 @@ export function MermaidViewer({ script, isRendering, onRenderComplete, renderKey
       <CardContent className="pt-0">
         <div className="space-y-4">
           {script.trim() && !selectedTable && (
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
-              <p className="text-sm text-blue-800">
-                💡 <strong>Tip:</strong> Click on any table in the diagram below to highlight its relationships
-              </p>
-            </div>
           )}
           <div
             ref={containerRef}
